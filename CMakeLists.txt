@@ -91,9 +91,6 @@ find_package(Qt5OpenGL REQUIRED)
 
 find_package(OpenGL REQUIRED)
 
-#sudo apt install freeglut3-dev
-find_package(GLUT REQUIRED)
-
 add_executable(MabiMe  ${HEADERS} ${SOURCES} ${UI} )
 include_directories(${OPENGL_INCLUDE_DIRS} ${Qt5OpenGL_INCLUDE_DIRS} ${Qt5Core_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
-target_link_libraries(MabiMe ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
+target_link_libraries(MabiMe ${OPENGL_LIBRARIES} Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
