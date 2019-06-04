@@ -1,2 +1,5 @@
 *.pro.user
 *.cpp.*
+
+/cmake-build-debug
+/.idea

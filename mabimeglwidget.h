@@ -77,7 +77,7 @@ private:
         0, 0, 0, 50, 50, 50, 50, 0
     };
     float ti = 0 ;
-    PFNGLCLIENTACTIVETEXTUREPROC        glClientActiveTexture;
+    PFNGLCLIENTACTIVETEXTUREARBPROC        glClientActiveTexture;
     PFNGLCREATEPROGRAMPROC              glCreateProgram;
     PFNGLCREATESHADERPROC               glCreateShader;
     PFNGLSHADERSOURCEPROC               glShaderSource;

@@ -25,6 +25,7 @@
 #include <QMouseEvent>
 #include "GL/gl.h"
 #include "GL/glu.h"
+#include <GL/freeglut.h>
 
 #if defined(Q_OS_WIN)
     void *GetAnyGLFuncAddress(const char *name)
@@ -42,7 +43,8 @@
 #elif defined (Q_OS_LINUX)
     void *GetAnyGLFuncAddress(const char *name)
     {
-        void *p = (void *)glXGetProcAddress(name);
+//        void *p = (void *)glXGetProcAddress(name);
+        void *p = (void *)glutGetProcAddress(name);
         return p;
     }
 #endif
@@ -197,7 +199,7 @@ void MabiMeGLWidget::initializeGL() {
     glBufferData                = (PFNGLBUFFERDATAPROC)GetAnyGLFuncAddress("glBufferData");
     glGenBuffers                = (PFNGLGENBUFFERSPROC)GetAnyGLFuncAddress("glGenBuffers");
     glActiveTexture             = (PFNGLACTIVETEXTUREPROC)GetAnyGLFuncAddress("glActiveTexture");
-    glClientActiveTexture       = (PFNGLCLIENTACTIVETEXTUREPROC)GetAnyGLFuncAddress("glClientActiveTexture");
+    glClientActiveTexture       = (PFNGLCLIENTACTIVETEXTUREARBPROC)GetAnyGLFuncAddress("glClientActiveTexture");
     glGetShaderiv               = (PFNGLGETSHADERIVPROC)GetAnyGLFuncAddress("glGetShaderiv");
     glGenVertexArrays           = (PFNGLGENVERTEXARRAYSPROC)GetAnyGLFuncAddress("glGenVertexArrays");
     glBindVertexArray           = (PFNGLBINDVERTEXARRAYPROC)GetAnyGLFuncAddress("glBindVertexArray");

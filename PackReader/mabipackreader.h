@@ -22,7 +22,7 @@
 
 #include <QString>
 #include <QDataStream>
-#include <Qfile>
+#include <QFile>
 #include <QList>
 #include <QMap>
 #include <random>
