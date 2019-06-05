@@ -10,10 +10,10 @@ set(CMAKE_CXX_FLAGS "-D _DEBUG")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOMOC ON)
-
+set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(HEADERS mainwindow.h
+set(MABIME_HEADERS mainwindow.h
         PackReader/mabipackreader.h
         PackReader/mabimt.h
         mabimeglwidget.h
@@ -33,7 +33,7 @@ set(HEADERS mainwindow.h
         Parsers/faceemotionparser.h
         scrollingdisabledqlistwidget.h)
 
-set(SOURCES main.cpp
+set(MABIME_SOURCES main.cpp
         mainwindow.cpp
         PackReader/mabipackreader.cpp
         PackReader/mabimt.cpp
@@ -54,8 +54,9 @@ set(SOURCES main.cpp
         Parsers/faceemotionparser.cpp
         scrollingdisabledqlistwidget.cpp)
 
+set(MABIME_RESOURCES images.qrc)
 
-set(UI mainwindow.ui settingswindow.ui aboutwindow.ui)
+set(MABIME_UI mainwindow.ui settingswindow.ui aboutwindow.ui)
 
 
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -86,14 +87,10 @@ ELSE()
 ENDIF()
 find_package(Qt5Xml REQUIRED)
 
-
 find_package(Qt5OpenGL REQUIRED)
 
 find_package(OpenGL REQUIRED)
 
-#sudo apt install freeglut3-dev
-find_package(GLUT REQUIRED)
-
-add_executable(MabiMe  ${HEADERS} ${SOURCES} ${UI} )
+add_executable(MabiMe  ${MABIME_HEADERS} ${MABIME_SOURCES} ${MABIME_UI} ${MABIME_RESOURCES})
 include_directories(${OPENGL_INCLUDE_DIRS} ${Qt5OpenGL_INCLUDE_DIRS} ${Qt5Core_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
-target_link_libraries(MabiMe ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
+target_link_libraries(MabiMe ${OPENGL_LIBRARIES} Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
