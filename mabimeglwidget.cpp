@@ -119,20 +119,30 @@ void MabiMeGLWidget::paintGL() {
 
     // draw grid
     glDisable(GL_LIGHTING);
-//    glDisableClientState(GL_COLOR_ARRAY);
-//    glDisableClientState(GL_NORMAL_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
+    glDisableClientState(GL_NORMAL_ARRAY);
+    checkError("glDisableClientState");
 
-/*
     glVertexPointer(3, GL_FLOAT, 0, vertexList);
+    checkError("glVertexPointer");
     glTexCoordPointer(2, GL_FLOAT, 0, vertexUV);
+    checkError("glTexCoordPointer");
     glActiveTexture(GL_TEXTURE0);
+    checkError("glActiveTexture");
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    checkError("glTexParameteri");
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    checkError("glTexParameteri");
     glBindTexture(GL_TEXTURE_2D, frmTexture);
+    checkError("glBindTexture");
     glDrawArrays(GL_QUADS, 0, 4);
-*/
-//    glEnableClientState(GL_COLOR_ARRAY);
-//    glEnableClientState(GL_NORMAL_ARRAY);
+    checkError("glDrawArrays");
+
+    glEnableClientState(GL_COLOR_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+
+    checkError("glEnableClientState");
+
     glEnable(GL_LIGHTING);
     glClear(GL_DEPTH_BUFFER_BIT);
 
@@ -449,6 +459,7 @@ bool MabiMeGLWidget::loadTexture(PMGTexture *t, bool useFiltering) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     }
     glTexImage2D(GL_TEXTURE_2D, 0, 4, t->img.width(), t->img.height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, t->img.bits());
+    checkError("loadTexture -> glTexImage2D");
     t->loaded = true;
     return true;
 }
@@ -476,7 +487,14 @@ bool MabiMeGLWidget::addModel(Model *model) {
     try {
         // load textures that havent been loaded yet
         for (int i = 0; i < model->textures.count(); i++) {
-            if (!model->textures[i].loaded) loadTexture(&model->textures[i], true);
+            if (!model->textures[i].loaded){
+                if(loadTexture(&model->textures[i], true)){
+                    qDebug() << "Texture Loaded" << model->textures[i].name;
+                } else{
+                    qDebug() << "Texture Load Failed" << model->textures[i].name;
+                }
+            }
+
         }
         // add the model if it doesnt exist
         if (!models.contains(model)) {

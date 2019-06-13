@@ -116,7 +116,7 @@ bool PackManager::findMabinogiPath() {
 }
 #elif defined (Q_OS_LINUX)
 bool PackManager::findMabinogiPath() {
-    path = "/home/samba/share/downloads/Mabinogi_313/Mabinogi_313/package/";
+    path = "/home/samba/share/Mabinogi_313/package/";
     return true;
 }
 #endif
