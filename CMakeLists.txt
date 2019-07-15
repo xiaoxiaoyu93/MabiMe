@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(MabiMe)
 
+SET(CMAKE_PREFIX_PATH "C:\\Qt\\Qt5.13.0\\5.13.0\\msvc2017_64\\")
+
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -66,22 +68,23 @@ ENDIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 #find_package(OpenGL REQUIRED)
 #find_package(Qt4 REQUIRED)
 #find_package(Qt5 REQUIRED)
+
 find_package(Qt5Core)
 if(${Qt5Core_FOUND} )
-#    message(STATUS "\${Qt5Core_INCLUDE_DIRS}=${Qt5Core_INCLUDE_DIRS}")
+    message(STATUS "\${Qt5Core_INCLUDE_DIRS}=${Qt5Core_INCLUDE_DIRS}")
 ELSE()
     message(WARNING "Qt5Core Not Found")
 ENDIF()
 
 find_package(Qt5Widgets CONFIG REQUIRED)
 if(${Qt5Widgets_FOUND} )
-#    message(STATUS "\${Qt5Widgets_INCLUDE_DIRS}=${Qt5Widgets_INCLUDE_DIRS}")
+    message(STATUS "\${Qt5Widgets_INCLUDE_DIRS}=${Qt5Widgets_INCLUDE_DIRS}")
 ELSE()
     message(WARNING "Qt5Widgets Not Found")
 ENDIF()
 find_package(Qt5OpenGL REQUIRED)
 if(${Qt5OpenGL_FOUND} )
-#    message(STATUS "\${Qt5OpenGL_INCLUDE_DIRS}=${Qt5OpenGL_INCLUDE_DIRS}")
+    message(STATUS "\${Qt5OpenGL_INCLUDE_DIRS}=${Qt5OpenGL_INCLUDE_DIRS}")
 ELSE()
     message(WARNING "Qt5OpenGL Not Found")
 ENDIF()
@@ -92,5 +95,6 @@ find_package(Qt5OpenGL REQUIRED)
 find_package(OpenGL REQUIRED)
 
 add_executable(MabiMe  ${MABIME_HEADERS} ${MABIME_SOURCES} ${MABIME_UI} ${MABIME_RESOURCES})
+
 include_directories(${OPENGL_INCLUDE_DIRS} ${Qt5OpenGL_INCLUDE_DIRS} ${Qt5Core_INCLUDE_DIRS} ${Qt5Widgets_INCLUDE_DIRS})
-target_link_libraries(MabiMe ${OPENGL_LIBRARIES} Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml)
+target_link_libraries(MabiMe ${OPENGL_LIBRARIES} Qt5::Core Qt5::Widgets Qt5::OpenGL Qt5::Xml )
